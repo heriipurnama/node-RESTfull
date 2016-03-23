@@ -1,5 +1,5 @@
 var express  = require('express'),
-    restfull = require('node-restfull'),
+    restfull = require('node-restful'),
     mongoose = restfull.mongoose;
 
 var app = express();
@@ -9,11 +9,17 @@ app.configure(function(){
     
 });
 
-mongoose.connect('mongodb://127.0.0.1/restfull');
+mongoose.connect('mongodb://127.0.0.1/restful');
 
-var Products = restfull.model('produk', ProductsSchema);
-Products.methods(['get', 'put', 'posts', 'delete']);
-Products.register(app, '/api/products');
+var ProductSchema = mongoose.Schema({
+    name:String,
+    sku:String,
+    price:Number
+});
+
+var Products= restful.model('products', ProductSchema);
+        Products.methods(['get','put','post','delete']);
+        Products.register(app,'/api/products');
 
 app.listen(1444);
-console.log('Server running at port 1444');
+console.log('Server running pada port 14444');
